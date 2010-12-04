@@ -1,0 +1,87 @@
+CLI.php Examples
+================
+
+First off ...
+
+Make sure you include the class in your script!
+
+	<?php
+	
+	include("/path/to/CLI.php");
+	
+	?>
+	
+	
+//////////////////////////////////////////////////////
+//
+// Example 1: 
+//	Create an account
+//
+//////////////////////////////////////////////////////
+
+	<?php
+	
+	$host = "company.com";
+	$port = 106;
+	$login = "postmaster@company.com";
+	$password = "pass";
+	$cli = new CLI;
+	// Debug mode is off for now - set to "1" to turn on
+	// $cli->setDebug(1);
+	$cli->Login($host,$port,$login,$password);
+	$UserData = array(
+		"accountName" => "john",
+		"settings" => array(
+			"AccessModes" => "Mail POP IMAP PWD WebMail WebSite",
+			"RealName" => "John X. Smith",
+			"MaxAccountSize" => "100k"
+			)
+		);
+	$cli->CreateAccount($UserData);
+	$cli->Logout();
+	
+	?>
+	
+//////////////////////////////////////////////////////
+//
+// Example 2: 
+//	Create a domain with default settings
+//
+//////////////////////////////////////////////////////
+
+	<?php
+	
+	// Specify a new domain to set up
+	$newdomain = "billybob.com";
+	
+	// Connect to your CG server
+	$host = "company.com";
+	$port = 106;
+	$login = "postmaster@company.com";
+	$password = "pass";
+	$cli = new CLI;
+	$cli->setDebug(1);
+	$cli->Login($host,$port,$login,$password);
+
+	// Create domain
+	$settings = array(
+		// no IMAP, no WebSite
+		"DomainAccessModes" => array("Mail","POP","PWD","ACAP","WebMail","Relay","Mobile")
+		);
+	$cli->CreateDomain($newdomain,$settings);
+
+	// Add domain alias
+	$aliases = array("mail.$newdomain");
+	$cli->SetDomainAliases($newdomain,$aliases);
+
+	// Create Forwarders to your primary postmaster account
+	$cli->CreateForwarder("abuse@$newdomain","postmaster@company.com");
+	$cli->CreateForwarder("postmaster@$newdomain","postmaster@company.com");
+
+	// Create Basic Skin
+	$cli->CreateDomainSkin("$newdomain","");
+	
+	// Done!
+	$cli->Logout();
+
+	?>

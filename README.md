@@ -1,11 +1,12 @@
 # No Longer Maintained
 
 I wrote this class in 2002, back when:
-  * I was just learning about OOP in PHP
-  * I actually used CommunigatePro
-  * I had no children
-  * I lived on a farm
-  * I was a mostly-unemployed independent contractor (it was 2002, after all)
+
+ *  I was just learning about OOP in PHP
+ *  I actually used CommunigatePro
+ *  I had no children
+ *  I lived on a farm
+ *  I was a mostly-unemployed independent contractor (it was 2002, after all)
   
 Since then, my wife and I have had two kids, we've relocated to the Bay Area,
 I've written more (and better) OO code for PHP5 than I care to remember, and 
